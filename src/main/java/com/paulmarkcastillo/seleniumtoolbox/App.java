@@ -1,4 +1,4 @@
-package com.github.paulmarkcastillo;
+package com.paulmarkcastillo.seleniumtoolbox;
 
 /**
  * Hello world!
