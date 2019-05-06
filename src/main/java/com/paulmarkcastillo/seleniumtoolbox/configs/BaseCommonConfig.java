@@ -1,4 +1,4 @@
-package seleniumtoolbox.configs;
+package com.paulmarkcastillo.seleniumtoolbox.configs;
 
 import java.io.BufferedReader;
 import java.io.File;

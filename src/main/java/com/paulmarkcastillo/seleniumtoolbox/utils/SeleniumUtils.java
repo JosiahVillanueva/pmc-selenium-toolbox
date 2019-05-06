@@ -1,6 +1,6 @@
-package seleniumtoolbox.utils;
+package com.paulmarkcastillo.seleniumtoolbox.utils;
 
-import seleniumtoolbox.hooks.HooksAndroid;
+import com.paulmarkcastillo.seleniumtoolbox.hooks.HooksAndroid;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;

@@ -1,4 +1,4 @@
-package seleniumtoolbox.configs;
+package com.paulmarkcastillo.seleniumtoolbox.configs;
 
 public class ConfigAndroid extends BaseAppiumConfig {
     public ConfigAndroid() {

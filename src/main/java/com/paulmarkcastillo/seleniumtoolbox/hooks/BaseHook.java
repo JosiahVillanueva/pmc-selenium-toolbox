@@ -1,7 +1,7 @@
-package seleniumtoolbox.hooks;
+package com.paulmarkcastillo.seleniumtoolbox.hooks;
 
-import seleniumtoolbox.configs.ConfigAndroid;
-import seleniumtoolbox.utils.ScreenRecorderUtils;
+import com.paulmarkcastillo.seleniumtoolbox.configs.ConfigAndroid;
+import com.paulmarkcastillo.seleniumtoolbox.utils.ScreenRecorderUtils;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;

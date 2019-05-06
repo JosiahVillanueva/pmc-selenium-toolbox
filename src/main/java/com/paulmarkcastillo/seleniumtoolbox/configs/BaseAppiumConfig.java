@@ -1,4 +1,4 @@
-package seleniumtoolbox.configs;
+package com.paulmarkcastillo.seleniumtoolbox.configs;
 
 public abstract class BaseAppiumConfig extends BaseCommonConfig {
 

@@ -1,8 +1,8 @@
-package seleniumtoolbox.drivers;
+package com.paulmarkcastillo.seleniumtoolbox.drivers;
 
-import seleniumtoolbox.configs.BaseCommonConfig;
-import seleniumtoolbox.configs.ConfigAndroid;
-import seleniumtoolbox.hooks.HooksAndroid;
+import com.paulmarkcastillo.seleniumtoolbox.configs.BaseCommonConfig;
+import com.paulmarkcastillo.seleniumtoolbox.configs.ConfigAndroid;
+import com.paulmarkcastillo.seleniumtoolbox.hooks.HooksAndroid;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
