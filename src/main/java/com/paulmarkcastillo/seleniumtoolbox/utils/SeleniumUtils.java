@@ -1,7 +1,5 @@
 package com.paulmarkcastillo.seleniumtoolbox.utils;
 
-import com.paulmarkcastillo.seleniumtoolbox.hooks.HooksAndroid;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
@@ -26,14 +24,25 @@ public class SeleniumUtils {
     private static final int SWIPE_SPEED_MILLIS = 500;
     private static final int MAX_TRIES = 5;
 
+    private AndroidDriver driver;
+    private long implicitWait;
+    private boolean keyboardDisabled;
+
+    public SeleniumUtils(
+            AndroidDriver driver,
+            long implicitWait,
+            boolean keyboardDisabled) {
+        this.driver = driver;
+        this.implicitWait = implicitWait;
+        this.keyboardDisabled = keyboardDisabled;
+    }
+
     @Contract(pure = true)
-    private static double getPercentage(double num) {
+    private double getPercentage(double num) {
         return num / 100;
     }
 
-    public static void singleTap(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void singleTap(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -44,12 +53,10 @@ public class SeleniumUtils {
         int targetX = (x1 + x2) / 2;
         int targetY = (y1 + y2) / 2;
 
-        tap(driver, targetX, targetY);
+        tap(targetX, targetY);
     }
 
-    public static void doubleTap(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void doubleTap(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -60,14 +67,12 @@ public class SeleniumUtils {
         int targetX = (x1 + x2) / 2;
         int targetY = (y1 + y2) / 2;
 
-        tap(driver, targetX, targetY);
-        tap(driver, targetX, targetY);
+        tap(targetX, targetY);
+        tap(targetX, targetY);
     }
 
-    private static void tap(
-            @NotNull AppiumDriver driver,
-            int targetX,
-            int targetY) {
+    private void tap(int targetX,
+                     int targetY) {
         TouchAction action = new TouchAction(driver);
         System.out.println("[TEST] Tapping: X=" + targetX + ";Y=" + targetY);
         action.tap(PointOption.point(targetX, targetY))
@@ -75,9 +80,7 @@ public class SeleniumUtils {
                 .perform();
     }
 
-    public static void swipeRightToLeft(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void swipeRightToLeft(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -91,12 +94,10 @@ public class SeleniumUtils {
         int startY = (y1 + y2) / 2;
         int endY = startY;
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    public static void swipeRightToLeftCompletely(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void swipeRightToLeftCompletely(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -110,12 +111,10 @@ public class SeleniumUtils {
         int startY = (y1 + y2) / 2;
         int endY = startY;
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    public static void swipeLeftToRight(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void swipeLeftToRight(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -129,12 +128,10 @@ public class SeleniumUtils {
         int startY = (y1 + y2) / 2;
         int endY = startY;
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    public static void swipeLeftToRightCompletely(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void swipeLeftToRightCompletely(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -148,12 +145,10 @@ public class SeleniumUtils {
         int startY = (y1 + y2) / 2;
         int endY = startY;
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    public static void swipeBottomToTop(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void swipeBottomToTop(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -167,12 +162,10 @@ public class SeleniumUtils {
         int startY = y1 + (int) (size.height * getPercentage(60));
         int endY = y1 + (int) (size.height * getPercentage(30));
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    public static void swipeTopToBottom(
-            @NotNull AppiumDriver driver,
-            @NotNull WebElement element) {
+    public void swipeTopToBottom(@NotNull WebElement element) {
         int x1 = element.getLocation().getX();
         int y1 = element.getLocation().getY();
 
@@ -186,29 +179,25 @@ public class SeleniumUtils {
         int startY = y1 + (int) (size.height * getPercentage(30));
         int endY = y1 + (int) (size.height * getPercentage(60));
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    public static WebElement scrollToElement(
-            @NotNull AndroidDriver driver,
-            @NotNull By by) {
-        return scrollToElement(null, driver, by);
+    public WebElement scrollToElement(@NotNull By by) {
+        return scrollToElement(null, by);
     }
 
     private static final String DIRECTION_DOWNWARDS = "down";
     private static final String DIRECTION_UPWARDS = "up";
 
-    public static WebElement scrollToElement(
-            String name,
-            @NotNull AndroidDriver driver,
-            @NotNull By by) {
+    public WebElement scrollToElement(
+            String name, @NotNull By by) {
 
         setImplicitWait(2);
 
         if (name != null && !name.equals("")) System.out.println("[TEST] Finding: " + name);
 
-        WebElement webElement = scrollToElementDirection(name, driver, by, DIRECTION_DOWNWARDS);
-        if (webElement == null) webElement = scrollToElementDirection(name, driver, by, DIRECTION_UPWARDS);
+        WebElement webElement = scrollToElementDirection(name, by, DIRECTION_DOWNWARDS);
+        if (webElement == null) webElement = scrollToElementDirection(name, by, DIRECTION_UPWARDS);
 
         if (webElement == null) {
             if (name != null && !name.equals(""))
@@ -217,7 +206,7 @@ public class SeleniumUtils {
                 System.out.println("[TEST] [FAILED] Unable to find element");
         }
 
-        setImplicitWait(HooksAndroid.config.getImplicitlyWait());
+        setImplicitWait(implicitWait);
 
         assertNotNull(webElement);
 
@@ -226,9 +215,8 @@ public class SeleniumUtils {
 
     @SuppressWarnings({
             "checkstyle:CyclomaticComplexity"})
-    public static WebElement scrollToElementDirection(
+    public WebElement scrollToElementDirection(
             String name,
-            @NotNull AndroidDriver driver,
             @NotNull By by,
             @NotNull String direction) {
 
@@ -238,7 +226,7 @@ public class SeleniumUtils {
 
         do {
             try {
-                webElement = findElement(driver, by);
+                webElement = findElement(by);
                 if (webElement != null && webElement.isDisplayed()) {
                     if (name != null && !name.equals("")) System.out.println("[TEST] Found: " + name);
                     found = true;
@@ -249,8 +237,8 @@ public class SeleniumUtils {
                 else
                     System.out.println("[TEST] Unable to find element, scrolling " + direction + "... " + tries);
 
-                if (direction.equals("down")) scrollBottomToTop(driver);
-                else if (direction.equals("up")) scrollTopToBottom(driver);
+                if (direction.equals("down")) scrollBottomToTop();
+                else if (direction.equals("up")) scrollTopToBottom();
 
                 tries--;
             }
@@ -259,15 +247,15 @@ public class SeleniumUtils {
         return webElement;
     }
 
-    public static void setImplicitWait(long seconds) {
-        HooksAndroid.driver
+    public void setImplicitWait(long seconds) {
+        driver
                 .manage()
                 .timeouts()
                 .implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
-    public static void hideKeyboard(@NotNull AndroidDriver driver) {
-        if (!HooksAndroid.config.getDisableKeypad()) {
+    public void hideKeyboard() {
+        if (!keyboardDisabled) {
             if (driver.isKeyboardShown()) {
                 try {
                     driver.hideKeyboard();
@@ -277,18 +265,15 @@ public class SeleniumUtils {
         }
     }
 
-    public static WebElement findElement(
-            @NotNull AndroidDriver driver,
-            @NotNull By by) {
-        return findElement(null, driver, by);
+    public WebElement findElement(@NotNull By by) {
+        return findElement(null, by);
     }
 
-    public static WebElement findElement(
+    public WebElement findElement(
             String name,
-            @NotNull AndroidDriver driver,
             @NotNull By by) {
 
-        hideKeyboard(driver);
+        hideKeyboard();
 
         if (name != null && !name.equals("")) System.out.println("[TEST] Finding: " + name);
 
@@ -299,30 +284,27 @@ public class SeleniumUtils {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
-    public static void scrollBottomToTop(
-            @NotNull AppiumDriver driver) {
+    public void scrollBottomToTop() {
         Dimension dimension = driver.manage().window().getSize();
         int startY = (int) (dimension.height * getPercentage(60));
         int endY = (int) (dimension.height * getPercentage(30));
         int startX = dimension.width / 2;
         int endX = startX;
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    public static void scrollTopToBottom(
-            @NotNull AppiumDriver driver) {
+    public void scrollTopToBottom() {
         Dimension dimension = driver.manage().window().getSize();
         int startY = (int) (dimension.height * getPercentage(30));
         int endY = (int) (dimension.height * getPercentage(60));
         int startX = dimension.width / 2;
         int endX = startX;
 
-        swipe(driver, startX, startY, endX, endY);
+        swipe(startX, startY, endX, endY);
     }
 
-    private static void swipe(
-            @NotNull AppiumDriver driver,
+    private void swipe(
             int startX,
             int startY,
             int endX,
