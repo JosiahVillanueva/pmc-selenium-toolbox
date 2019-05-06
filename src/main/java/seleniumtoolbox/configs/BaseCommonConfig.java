@@ -1,4 +1,4 @@
-package com.paulmarkcastillo.seleniumtoolbox.configs;
+package seleniumtoolbox.configs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +16,7 @@ public abstract class BaseCommonConfig {
         File localProperty = new File(localConfig);
         if (localProperty.exists()) {
             propertyFilePath = localConfig;
-            System.out.println("USING  LOCAL CONFIGURATIONS");
+            System.out.println("USING LOCAL CONFIGURATIONS");
         } else {
             System.out.println("USING DEFAULT CONFIGURATIONS");
         }

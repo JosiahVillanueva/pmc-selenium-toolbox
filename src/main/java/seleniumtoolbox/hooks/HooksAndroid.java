@@ -1,6 +1,6 @@
-package com.paulmarkcastillo.seleniumtoolbox.hooks;
+package seleniumtoolbox.hooks;
 
-import com.paulmarkcastillo.seleniumtoolbox.drivers.DriverAndroid;
+import seleniumtoolbox.drivers.DriverAndroid;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;

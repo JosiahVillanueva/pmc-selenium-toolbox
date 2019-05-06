@@ -1,4 +1,4 @@
-package com.paulmarkcastillo.seleniumtoolbox.utils;
+package seleniumtoolbox.utils;
 
 import java.io.File;
 import java.io.IOException;
